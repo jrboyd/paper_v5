@@ -1,0 +1,21 @@
+.Rproj.user
+.Rhistory
+.RData
+K4_FE.csv
+all_intersections.txt
+mcf10a_intersections.txt
+mcf7_intersections.txt
+mda231_intersections.txt
+paper_v4.Rproj
+wordcloud_cell_lines_GSEA_descriptions.pdf
+output*
+reads_per_chrm
+Thumbs.db
+Rplot*.pdf
+<<<<<<< HEAD
+~$important_genes_shared2.xlsx
+jrb_R_scripts
+*.pdf
+=======
+>>>>>>> 660cd8cbbffd6b3e25e09dd78da7ecb43e833f47
+*.pdf
