@@ -12,10 +12,8 @@ output*
 reads_per_chrm
 Thumbs.db
 Rplot*.pdf
-<<<<<<< HEAD
-~$important_genes_shared2.xlsx
 jrb_R_scripts
 *.pdf
-=======
->>>>>>> 660cd8cbbffd6b3e25e09dd78da7ecb43e833f47
-*.pdf
+.RDataTmp*
+tmp*
+ipa

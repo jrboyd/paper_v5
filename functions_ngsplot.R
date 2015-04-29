@@ -36,7 +36,7 @@ applyWindow = function(dat, win = 10){
 #   
 # }
 
-plotNGS_wBG = function(fg_ENSGcut_list, bg_ENSGcut_list, list_name, sel_name = 'selected', invert = F, ymax = 4){
+plotNGS_wBG = function(fg_ENSGcut_list, bg_ENSGcut_list, list_name, sel_name = 'selected', invert = F, ymax = 4, linesToPlot = c('MCF10A', 'MCF7', 'MDA231')){
   #plot ngs profile style plots
   #ENSGcut_list : is a character vector of cut ensg ids, cut means version number removed
   #list_name : name or description of input list, used in title
@@ -80,25 +80,25 @@ plotNGS_wBG = function(fg_ENSGcut_list, bg_ENSGcut_list, list_name, sel_name = '
   legend(x = 0, y = .4,legend = c(paste(length(fg_keep), 'genes in', sel_name), paste(length(bg_keep), 'other genes in list')), lty = c(3,1), bty = 'n', lwd = 2)
   plot(c(0,1), type = 'n', xlim = c(-1000,1000), ylim = c(0,ymax), ylab = 'H3K4ac', lwd = 2, xaxt = 'n')
   
-  for(l in lines){
+  for(l in linesToPlot){
     ac_d = ac_dat[[l]]
-    #points(xs, colMeans(ac_d[fg_keep,]), col = l2col[l], pch = 19, cex = 1)
+    points(xs, colMeans(ac_d[fg_keep,]), col = l2col[l], pch = 19, cex = 1)
     #points(xs, colMeans(ac_d[fg_keep,]), col = l2col_bg[l], pch = 16, cex = 1)
-    lines(xs, colMeans(ac_d[fg_keep,]), col = l2col[l], lwd = bg_lwd, lty = bg_lty)
+    #lines(xs, colMeans(ac_d[fg_keep,]), col = l2col[l], lwd = bg_lwd, lty = bg_lty)
   }
-  for(l in lines){
+  for(l in linesToPlot){
     ac_d = ac_dat[[l]]
     lines(xs, colMeans(ac_d[bg_keep,]), col = l2col[l], lwd = fg_lwd, lty = 1)
   }
   
   plot(c(0,1), type = 'n', xlim = c(-1000,1000), ylim = c(0,ymax), ylab = 'H3K4me3', lwd = 2)
-  for(l in lines){
+  for(l in linesToPlot){
     me_d = me_dat[[l]]
-    #points(xs, colMeans(me_d[fg_keep,]), col = l2col[l], pch = 19, cex = 1)
+    points(xs, colMeans(me_d[fg_keep,]), col = l2col[l], pch = 19, cex = 1)
     #points(xs, colMeans(me_d[fg_keep,]), col = l2col_bg[l], pch = 16, cex = 1)
-    lines(xs, colMeans(me_d[fg_keep,]), col = l2col[l], lwd = bg_lwd, lty = bg_lty)
+    #lines(xs, colMeans(me_d[fg_keep,]), col = l2col[l], lwd = bg_lwd, lty = bg_lty)
   }
-  for(l in lines){
+  for(l in linesToPlot){
     me_d = me_dat[[l]]
     lines(xs, colMeans(me_d[bg_keep,]), col = l2col[l], lwd = fg_lwd, lty = 1)
   }
@@ -107,7 +107,7 @@ plotNGS_wBG = function(fg_ENSGcut_list, bg_ENSGcut_list, list_name, sel_name = '
 }
 
 
-plotNGS = function(ENSGcut_list, list_name, invert = F, ymax = 4, lines = c('MCF10A', 'MCF7', 'MDA231')){
+plotNGS = function(ENSGcut_list, list_name, invert = F, ymax = 4, linesToPlot = c('MCF10A', 'MCF7', 'MDA231')){
   #plot ngs profile style plots
   #ENSGcut_list : is a character vector of cut ensg ids, cut means version number removed
   #list_name : name or description of input list, used in title
@@ -131,13 +131,13 @@ plotNGS = function(ENSGcut_list, list_name, invert = F, ymax = 4, lines = c('MCF
   text(.5,.5,paste(list_name, '\n', length(keep),' genes', sep = ''), cex = 1.5)
   legend(x = 'left',legend = lines, fill = l2col[lines], bty = 'n')
   plot(c(0,1), type = 'n', xlim = c(-1000,1000), ylim = c(0,ymax), ylab = 'H3K4ac', lwd = 2, xaxt = 'n')
-  for(l in lines){
+  for(l in linesToPlot){
     ac_d = ac_dat[[l]]
     keep = intersect(keep, rownames(ac_d))
     lines(xs, colMeans(ac_d[keep,, drop = F]), col = l2col[l], lwd = 2)
   }
   plot(c(0,1), type = 'n', xlim = c(-1000,1000), ylim = c(0,ymax), ylab = 'H3K4me3', lwd = 2)
-  for(l in lines){
+  for(l in linesToPlot){
     me_d = me_dat[[l]]
     keep = intersect(keep, rownames(me_d))
     lines(xs, colMeans(me_d[keep,, drop = F]), col = l2col[l], lwd = 2)

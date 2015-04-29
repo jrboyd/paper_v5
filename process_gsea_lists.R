@@ -52,4 +52,23 @@ for(i in 1:length(gsea_lists)){
 }
 names(gsea_membs) = names(gsea_lists)
 
-save(gsea_lists, gsea_unions, gsea_membs, file = 'ref//gsea_dataset.save')
+tmp = append(gsea_lists[[1]], gsea_lists[[2]])
+for(i in 3:length(gsea_lists)){
+  tmp = append(tmp, gsea_lists[[i]])
+}
+all_gsea_lists = tmp
+
+grp_genes = character()
+for(i in 1:length(all_gsea_lists)){
+  grp_genes = union(grp_genes, all_gsea_lists[[i]])
+}
+
+membership = matrix(F, nrow = length(grp_genes), ncol = length(all_gsea_lists))
+rownames(membership) = grp_genes
+colnames(membership) = names(all_gsea_lists)
+for(i in 1:length(all_gsea_lists)){
+  membership[all_gsea_lists[[i]],i] = T
+}
+gsea_master = membership
+
+save(gsea_master, gsea_lists, gsea_unions, gsea_membs, file = 'ref//gsea_dataset.save')
